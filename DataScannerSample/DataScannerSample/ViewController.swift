@@ -29,15 +29,13 @@ class ViewController: UIViewController {
     private func check(completion: @escaping (Bool) -> ()) {
         AVCaptureDevice.requestAccess(for: .video, completionHandler: { granted in
             let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-            if let completion {
-                guard authorizationStatus == .authorized,
-                      DataScannerViewController.isSupported,
-                      DataScannerViewController.isAvailable else {
-                    completion(false)
-                    return
-                }
-                completion(true)
+            guard authorizationStatus == .authorized,
+                  DataScannerViewController.isSupported,
+                  DataScannerViewController.isAvailable else {
+                completion(false)
+                return
             }
+            completion(true)
         })
     }
     
